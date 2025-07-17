@@ -96,6 +96,8 @@ public:
     void SetAlarmEvent();
     void ClearAlarmEvent();
 #endif
+    // 新增：接收外部音频数据（如音乐播放）
+    void AddAudioData(AudioStreamPacket&& packet);
 private:
     Application();
     ~Application();
