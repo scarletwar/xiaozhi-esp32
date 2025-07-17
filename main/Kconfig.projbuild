@@ -461,4 +461,11 @@ choice I2S_TYPE_TAIJIPI_S3
         bool "I2S Type PDM"
 endchoice
 
+config USE_ALARM
+    depends on IOT_PROTOCOL_MCP
+    bool "启用提醒闹钟功能"
+    default y
+    help
+        一个自定义的闹钟功能,必须使用可以获取时间的ota服务器!!!
+
 endmenu

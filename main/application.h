@@ -22,6 +22,10 @@
 #include "background_task.h"
 #include "audio_processor.h"
 #include "wake_word.h"
+#if CONFIG_USE_ALARM
+#include "AlarmClock.h"
+#define ALARM_EVENT (1 << 2)
+#endif
 #include "audio_debugger.h"
 
 #define SCHEDULE_EVENT (1 << 0)
@@ -44,6 +48,9 @@ enum DeviceState {
     kDeviceStateSpeaking,
     kDeviceStateUpgrading,
     kDeviceStateActivating,
+#if CONFIG_USE_ALARM
+    kDeviceStateAlarm,
+#endif
     kDeviceStateAudioTesting,
     kDeviceStateFatalError
 };
@@ -83,7 +90,12 @@ public:
     bool ReadAudio(std::vector<int16_t>& data, int sample_rate, int samples);
     AecMode GetAecMode() const { return aec_mode_; }
     BackgroundTask* GetBackgroundTask() const { return background_task_; }
-
+#if CONFIG_USE_ALARM
+    //test
+    AlarmManager* alarm_m_ = nullptr;
+    void SetAlarmEvent();
+    void ClearAlarmEvent();
+#endif
 private:
     Application();
     ~Application();
